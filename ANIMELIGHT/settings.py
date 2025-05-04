@@ -11,7 +11,7 @@ SECRET_KEY = 'django-insecure-yfs5lqo3*q!huy9r6%c5fcg!j!q%kbcx@+y#(qg8v0+3ak=beo
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["83.222.17.157", "anime-hub.ru", "www.anime-hub.ru"]
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',   # Нужно для базовых моделей
