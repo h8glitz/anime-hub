@@ -114,11 +114,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Настройка для обработки статики через Django в режиме DEBUG
 if DEBUG:
-    # Добавляем обработку MEDIA_URL в режиме разработки
-    INSTALLED_APPS += ['django.contrib.staticfiles']
     import mimetypes
     mimetypes.add_type("text/css", ".css", True)
     mimetypes.add_type("application/javascript", ".js", True)
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
