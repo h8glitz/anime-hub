@@ -1,0 +1,85 @@
+Структура папок
+Серийный номер тома: 7588-2B90
+C:.
+|   db.sqlite3
+|   manage.py
+|   structure.txt
+|   структура.txt
+|   
++---.idea
+|   |   .gitignore
+|   |   .name
+|   |   encodings.xml
+|   |   LIGHT.iml
+|   |   misc.xml
+|   |   modules.xml
+|   |   workspace.xml
+|   |   
+|   \---inspectionProfiles
+|           profiles_settings.xml
+|           
++---ANIMELIGHT
+|   |   asgi.py
+|   |   settings.py
+|   |   urls.py
+|   |   wsgi.py
+|   |   __init__.py
+|   |   
+|   \---__pycache__
+|           settings.cpython-313.pyc
+|           urls.cpython-313.pyc
+|           wsgi.cpython-313.pyc
+|           __init__.cpython-313.pyc
+|           
+\---anime_deploy
+    |   admin.py
+    |   apps.py
+    |   models.py
+    |   tests.py
+    |   views.py
+    |   __init__.py
+    |   
+    +---migrations
+    |   |   0001_initial.py
+    |   |   __init__.py
+    |   |   
+    |   \---__pycache__
+    |           0001_initial.cpython-313.pyc
+    |           0002_auto_20250316_1308.cpython-313.pyc
+    |           __init__.cpython-313.pyc
+    |           
+    +---static
+    |   |   anime.css
+    |   |   anime.js
+    |   |   anime_collection.css
+    |   |   anime_collection.js
+    |   |   login.css
+    |   |   register.css
+    |   |   register.js
+    |   |   
+    |   +---css
+    |   |       global.css
+    |   |       profile.css
+    |   |       
+    |   \---js
+    |           main.js
+    |           register.js
+    |           
+    +---templates
+    |   |   about.html
+    |   |   anime.html
+    |   |   anime_collection.html
+    |   |   main.html
+    |   |   profile.html
+    |   |   register.html
+    |   |   
+    |   \---registration
+    |           login.html
+    |           
+    \---__pycache__
+            admin.cpython-313.pyc
+            apps.cpython-313.pyc
+            models.cpython-313.pyc
+            views.cpython-313.pyc
+            __init__.cpython-313.pyc
+            

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Anime Hub{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Навигация -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" {% if request.path == '/' %}class="active"{% endif %}>Главная</a></li>
+                <li><a href="/anime_collection/" {% if request.path == '/anime_collection/' %}class="active"{% endif %}>Аниме</a></li>
+                <li><a href="/about/" {% if request.path == '/about/' %}class="active"{% endif %}>О нас</a></li>
+                <li><a href="/support/" {% if request.path == '/support/' %}class="active"{% endif %}>Техподдержка</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="/profile/" class="btn-login">Профиль</a></li>
+                    <li><a href="/accounts/logout/" class="btn-login">Выйти</a></li>
+                {% else %}
+                    <li><a href="/accounts/login/" class="btn-login">Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <!-- Подвал -->
+    <footer>
+        <p>© 2025 Anime Hub - Все права защищены.</p>
+    </footer>
+
+    <!-- Основной JS файл -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

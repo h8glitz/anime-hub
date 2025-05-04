@@ -1,0 +1,627 @@
+{% extends 'base.html' %}
+
+{% block title %}Anime Hub - Главная страница{% endblock %}
+
+{% block content %}
+    <!-- Главный баннер с аниме -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Добро пожаловать в Anime Hub!</h1>
+            <p>Самый большой каталог аниме в России. Смотрите любимые сериалы в HD качестве!</p>
+            <div class="hero-buttons">
+                <a href="/anime_collection/" class="btn-main">Начать смотреть</a>
+                <a href="/about/" class="btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категории аниме -->
+    <section class="categories">
+        <h2>Категории</h2>
+        <div class="categories-grid">
+            <a href="/anime_collection/?genre=action" class="category-card">
+                <i class="fas fa-fist-raised"></i>
+                <span>Экшен</span>
+            </a>
+            <a href="/anime_collection/?genre=romance" class="category-card">
+                <i class="fas fa-heart"></i>
+                <span>Романтика</span>
+            </a>
+            <a href="/anime_collection/?genre=comedy" class="category-card">
+                <i class="fas fa-laugh"></i>
+                <span>Комедия</span>
+            </a>
+            <a href="/anime_collection/?genre=drama" class="category-card">
+                <i class="fas fa-theater-masks"></i>
+                <span>Драма</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Последние обновления (Swiper Slider) -->
+    <section class="updates">
+        <div class="section-header">
+            <h2>Последние обновления</h2>
+            <a href="/anime_collection/" class="view-all">Смотреть все <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+        <div class="swiper updates-swiper">
+            <div class="swiper-wrapper">
+                {% for anime in updates_anime %}
+                <div class="swiper-slide">
+                    <div class="anime-card">
+                        <div class="anime-poster">
+                            <img src="{{ anime.poster_url }}" alt="{{ anime.title }}">
+                            <div class="anime-overlay">
+                                <div class="status ongoing">В процессе</div>
+                                <div class="rating"><i class="fas fa-star"></i> {{ anime.rating }}</div>
+                            </div>
+                        </div>
+                        <div class="anime-info">
+                            <h3 class="anime-title">{{ anime.title }}</h3>
+                            <p class="anime-description">{{ anime.description|default:'Краткое описание аниме' }}</p>
+                            <div class="genres-container">
+                                {% for genre in anime.genres %}
+                                    <span class="genre-tag">{{ genre }}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="/anime/{{ anime.id }}/" class="watch-btn">
+                                <i class="fas fa-play"></i> СМОТРЕТЬ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <!-- Популярные аниме (тоже Swiper) -->
+    <section class="popular-anime">
+        <div class="section-header">
+            <h2>Популярные аниме</h2>
+            <a href="/anime_collection/?sort=popular" class="view-all">Смотреть все <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="swiper popular-swiper">
+            <div class="swiper-wrapper">
+                {% for anime in popular_anime %}
+                <div class="swiper-slide">
+                    <div class="anime-card">
+                        <div class="anime-poster">
+                            <img src="{{ anime.poster_url }}" alt="{{ anime.title }}">
+                            <div class="anime-overlay">
+                                <div class="status ongoing">В процессе</div>
+                                <div class="rating"><i class="fas fa-star"></i> {{ anime.rating }}</div>
+                            </div>
+                        </div>
+                        <div class="anime-info">
+                            <h3 class="anime-title">{{ anime.title }}</h3>
+                            <p class="anime-description">{{ anime.description|default:'Краткое описание аниме' }}</p>
+                            <div class="genres-container">
+                                {% for genre in anime.genres %}
+                                    <span class="genre-tag">{{ genre }}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="/anime/{{ anime.id }}/" class="watch-btn">
+                                <i class="fas fa-play"></i> СМОТРЕТЬ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <!-- Преимущества платформы -->
+    <section class="features">
+        <h2>Почему выбирают нас</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-tv"></i>
+                <h3>HD Качество</h3>
+                <p>Все аниме доступны в высоком качестве</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>Быстрые обновления</h3>
+                <p>Новые серии появляются сразу после выхода</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-closed-captioning"></i>
+                <h3>Субтитры</h3>
+                <p>Все сериалы с русскими субтитрами</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Мобильная версия</h3>
+                <p>Смотрите аниме с любого устройства</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      /* Обновленные стили для секций */
+      .updates, .popular-anime {
+        padding: 60px 20px;
+        background: #1a1a1a;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .section-header h2 {
+        color: white;
+        font-size: 2rem;
+        margin: 0;
+        position: relative;
+        padding-left: 15px;
+      }
+
+      .section-header h2::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 24px;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        border-radius: 2px;
+      }
+
+      .view-all {
+        color: #ff9100;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.2s;
+      }
+
+      .view-all:hover {
+        color: #ffb300;
+      }
+
+      .view-all i {
+        transition: transform 0.2s;
+      }
+
+      .view-all:hover i {
+        transform: translateX(4px);
+      }
+
+      .swiper-slide {
+        width: 280px !important;
+        max-width: 280px;
+        min-width: 280px;
+        display: flex;
+        justify-content: center;
+        transition: transform 0.3s;
+      }
+
+      .swiper-slide:hover {
+        transform: translateY(-10px);
+      }
+
+      .anime-card {
+        background: #232323;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        width: 260px;
+        min-width: 260px;
+        max-width: 260px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .anime-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .anime-card:hover::before {
+        opacity: 1;
+      }
+
+      .anime-card:hover {
+        box-shadow: 0 8px 30px rgba(255, 145, 0, 0.2);
+      }
+
+      .anime-poster {
+        position: relative;
+        width: 230px;
+        height: 330px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 15px;
+      }
+
+      .anime-poster img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+
+      .anime-card:hover .anime-poster img {
+        transform: scale(1.05);
+      }
+
+      .anime-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      }
+
+      .anime-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 10px 0 5px 0;
+        text-align: center;
+        color: white;
+        line-height: 1.4;
+        min-height: 44px;
+        max-height: 44px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      .anime-description {
+        font-size: 0.9rem;
+        color: #aaa;
+        max-height: 40px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        text-align: center;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      .genres-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .genre-tag {
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: rgba(255, 145, 0, 0.1);
+        color: #ff9100;
+        font-size: 0.8rem;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .genre-tag:hover {
+        background: rgba(255, 145, 0, 0.2);
+      }
+
+      .watch-btn {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 12px 0;
+        width: 100%;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        color: white;
+        border: none;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 145, 0, 0.3);
+      }
+
+      .watch-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 145, 0, 0.4);
+      }
+
+      .watch-btn i {
+        font-size: 0.9rem;
+      }
+
+      .rating, .status {
+        font-size: 0.85rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .rating {
+        background: rgba(255, 179, 0, 0.2);
+        color: #ffb300;
+      }
+
+      .status {
+        background: rgba(30, 126, 52, 0.2);
+        color: #2ecc71;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: #ff9100;
+        background: rgba(0, 0, 0, 0.5);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: all 0.3s;
+      }
+
+      .swiper-button-next:hover,
+      .swiper-button-prev:hover {
+        background: rgba(255, 145, 0, 0.2);
+        color: #ffb300;
+      }
+
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        font-size: 1.2rem;
+      }
+
+      @media (max-width: 768px) {
+        .section-header {
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+        }
+
+        .section-header h2::before {
+          display: none;
+        }
+
+        .swiper-slide {
+          width: 240px !important;
+          max-width: 240px;
+          min-width: 240px;
+        }
+
+        .anime-card {
+          width: 220px;
+          min-width: 220px;
+          max-width: 220px;
+        }
+
+        .anime-poster {
+          width: 190px;
+          height: 280px;
+        }
+      }
+
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/images/hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 120px 20px;
+        text-align: center;
+        color: white;
+      }
+
+      .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .btn-main {
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.2s;
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.2s;
+      }
+
+      .btn-main:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .categories {
+        padding: 60px 20px;
+        background: #1a1a1a;
+      }
+
+      .categories h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: white;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .category-card {
+        background: #232323;
+        padding: 30px;
+        border-radius: 16px;
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.2s;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .category-card i {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #ff9100;
+      }
+
+      .features {
+        padding: 60px 20px;
+        background: #1a1a1a;
+      }
+
+      .features h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: white;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .feature-card {
+        background: #232323;
+        padding: 30px;
+        border-radius: 16px;
+        text-align: center;
+        color: white;
+      }
+
+      .feature-card i {
+        font-size: 2.5rem;
+        color: #ff9100;
+        margin-bottom: 20px;
+      }
+
+      .feature-card h3 {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+      }
+
+      .feature-card p {
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .categories-grid,
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .categories-grid,
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script>
+      const updatesSwiper = new Swiper('.updates-swiper', {
+        slidesPerView: 3,
+        spaceBetween: 32,
+        navigation: {
+          nextEl: '.updates-swiper .swiper-button-next',
+          prevEl: '.updates-swiper .swiper-button-prev',
+        },
+        loop: false,
+        breakpoints: {
+          320: { slidesPerView: 1, spaceBetween: 8 },
+          640: { slidesPerView: 2, spaceBetween: 16 },
+          1024: { slidesPerView: 3, spaceBetween: 32 }
+        }
+      });
+      const popularSwiper = new Swiper('.popular-swiper', {
+        slidesPerView: 3,
+        spaceBetween: 32,
+        navigation: {
+          nextEl: '.popular-swiper .swiper-button-next',
+          prevEl: '.popular-swiper .swiper-button-prev',
+        },
+        loop: false,
+        breakpoints: {
+          320: { slidesPerView: 1, spaceBetween: 8 },
+          640: { slidesPerView: 2, spaceBetween: 16 },
+          1024: { slidesPerView: 3, spaceBetween: 32 }
+        }
+      });
+    </script>
+{% endblock %}

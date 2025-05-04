@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}Anime Hub - Вход{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h1>Вход в аккаунт</h1>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Имя пользователя</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group remember-me">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember" id="remember">
+                    <span>Запомнить меня</span>
+                </label>
+            </div>
+            <button type="submit" class="login-btn">Войти</button>
+        </form>
+        <div class="login-links">
+            <a href="/register/" class="register-link">Создать аккаунт</a>
+            <a href="/password-reset/" class="forgot-password">Забыли пароль?</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/images/hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+    }
+
+    .login-box {
+        background: rgba(35, 35, 35, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-box h1 {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        color: #aaa;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        background: #232323;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: #ff9100;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 145, 0, 0.2);
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 145, 0, 0.4);
+    }
+
+    .login-links {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+    }
+
+    .login-links a {
+        color: #ff9100;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .login-links a:hover {
+        color: #ffb300;
+    }
+
+    @media (max-width: 480px) {
+        .login-box {
+            padding: 30px 20px;
+        }
+
+        .login-links {
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+    }
+
+    .remember-me {
+        margin-bottom: 20px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .checkbox-label span {
+        font-size: 0.9rem;
+    }
+
+    .messages {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+
+    .alert-error {
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 0, 0, 0.2);
+        color: #ff4444;
+    }
+
+    .alert-success {
+        background: rgba(0, 255, 0, 0.1);
+        border: 1px solid rgba(0, 255, 0, 0.2);
+        color: #00ff00;
+    }
+</style>
+{% endblock %} 

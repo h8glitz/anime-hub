@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}О нас - Anime Hub{% endblock %}
+
+{% block content %}
+<!-- Главная секция О нас -->
+<section class="about">
+    <div class="about-content">
+        <div class="about-header">
+            <h1>О нас</h1>
+            <div class="about-decoration">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="about-text">
+            <p>Anime Hub — это платформа, которая предоставляет удобный доступ к огромному количеству аниме. Мы стремимся создать идеальное место для всех любителей аниме, где каждый найдет что-то для себя.</p>
+            <p>Мы обновляем нашу коллекцию регулярно, чтобы вы могли наслаждаться самыми последними релизами, а также находить самые популярные и любимые аниме.</p>
+        </div>
+        <div class="about-stats">
+            <div class="stat-item">
+                <span class="stat-number">1000+</span>
+                <span class="stat-label">Аниме</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50k+</span>
+                <span class="stat-label">Пользователей</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Поддержка</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Наши преимущества -->
+<section class="features">
+    <div class="section-header">
+        <h2>Почему выбирают нас</h2>
+        <p class="section-subtitle">Мы делаем всё для вашего комфорта</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-film"></i>
+            </div>
+            <h3>Большая коллекция</h3>
+            <p>Тысячи аниме в одном месте</p>
+            <div class="feature-hover">
+                <span>Узнать больше</span>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3>Регулярные обновления</h3>
+            <p>Новые серии каждый день</p>
+            <div class="feature-hover">
+                <span>Узнать больше</span>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3>Высокое качество</h3>
+            <p>Только лучшие релизы</p>
+            <div class="feature-hover">
+                <span>Узнать больше</span>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Удобный просмотр</h3>
+            <p>Смотрите где угодно</p>
+            <div class="feature-hover">
+                <span>Узнать больше</span>
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Наша команда -->
+<section class="team">
+    <div class="section-header">
+        <h2>Наша команда</h2>
+        <p class="section-subtitle">Знакомьтесь с создателями проекта</p>
+    </div>
+    <div class="team-members">
+        <div class="team-member">
+            <div class="member-image">
+                <img src="{% static 'images/danil.jpg' %}" alt="Данил Барбашов">
+                <div class="member-social">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="member-info">
+                <h3>Данил Барбашов</h3>
+                <p class="member-role">Основатель и CEO</p>
+                <p class="member-description">Страстный фанат аниме и разработчик с опытом создания веб-проектов.</p>
+                <div class="member-skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Django</span>
+                    <span class="skill-tag">JavaScript</span>
+                </div>
+            </div>
+        </div>
+        <div class="team-member">
+            <div class="member-image">
+                <img src="{% static 'images/artem.jpg' %}" alt="Артем Пасашков">
+                <div class="member-social">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="member-info">
+                <h3>Артем Пасашков</h3>
+                <p class="member-role">Основатель и CEO</p>
+                <p class="member-description">Эксперт в области аниме и разработки, создатель множества успешных проектов.</p>
+                <div class="member-skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Django</span>
+                    <span class="skill-tag">JavaScript</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Наши цели -->
+<section class="goals">
+    <div class="section-header">
+        <h2>Наши цели</h2>
+        <p class="section-subtitle">К чему мы стремимся</p>
+    </div>
+    <div class="goals-content">
+        <div class="goal-item">
+            <div class="goal-icon">
+                <i class="fas fa-bullseye"></i>
+            </div>
+            <h3>Качество контента</h3>
+            <p>Предоставлять только качественный контент в лучшем качестве</p>
+            <div class="goal-progress">
+                <div class="progress-bar" style="width: 90%"></div>
+            </div>
+        </div>
+        <div class="goal-item">
+            <div class="goal-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Сообщество</h3>
+            <p>Создать большое и дружное сообщество любителей аниме</p>
+            <div class="goal-progress">
+                <div class="progress-bar" style="width: 75%"></div>
+            </div>
+        </div>
+        <div class="goal-item">
+            <div class="goal-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <h3>Доступность</h3>
+            <p>Сделать просмотр аниме доступным для всех</p>
+            <div class="goal-progress">
+                <div class="progress-bar" style="width: 85%"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты -->
+<section class="contact">
+    <div class="section-header">
+        <h2>Свяжитесь с нами</h2>
+        <p class="section-subtitle">Мы всегда на связи</p>
+    </div>
+    <div class="contact-content">
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>support@animehub.ru</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Telegram</h3>
+                    <p>@animehub</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fab fa-vk"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>ВКонтакте</h3>
+                    <p>vk.com/animehub</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="testimonials-grid" id="comments-list"></div>
+<div class="comment-form-wrapper">
+    <h3>Оставить комментарий</h3>
+    <form id="comment-form">
+        <div class="form-group">
+            <span class="input-icon"><i class="fas fa-user"></i></span>
+            <input type="text" id="comment-name" placeholder="Ваше имя" maxlength="50" required>
+        </div>
+        <div class="form-group">
+            <span class="input-icon"><i class="fas fa-comment"></i></span>
+            <textarea id="comment-text" placeholder="Ваш комментарий" maxlength="500" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+{% endblock %}

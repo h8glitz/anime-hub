@@ -1,0 +1,464 @@
+{% extends 'base.html' %}
+
+{% block title %}Anime Hub - Профиль{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-sidebar">
+        <div class="profile-avatar">
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" alt="Аватар">
+            {% else %}
+                <div class="default-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            {% endif %}
+            <button class="change-avatar-btn">Изменить фото</button>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-value">{{ user.favorites.count }}</span>
+                <span class="stat-label">В избранном</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{ user.comments.count }}</span>
+                <span class="stat-label">Комментариев</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{ user.ratings.count }}</span>
+                <span class="stat-label">Оценок</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="profile-content">
+        <div class="profile-header">
+            <h1>Профиль пользователя</h1>
+            <button class="edit-profile-btn">Редактировать профиль</button>
+        </div>
+
+        <div class="profile-info">
+            <div class="info-group">
+                <label>Имя пользователя</label>
+                <p>{{ user.username }}</p>
+            </div>
+            <div class="info-group">
+                <label>Email</label>
+                <p>{{ user.email }}</p>
+            </div>
+            <div class="info-group">
+                <label>Дата регистрации</label>
+                <p>{{ user.date_joined|date:"d.m.Y" }}</p>
+            </div>
+        </div>
+
+        <div class="profile-sections">
+            <div class="section-tabs">
+                <button class="tab-btn active" data-tab="favorites">Избранное</button>
+                <button class="tab-btn" data-tab="comments">Комментарии</button>
+                <button class="tab-btn" data-tab="ratings">Оценки</button>
+            </div>
+
+            <div class="tab-content active" id="favorites">
+                <div class="anime-grid">
+                    {% for favorite in user.favorites.all %}
+                    <div class="anime-card">
+                        <img src="{{ favorite.anime.poster_url }}" alt="{{ favorite.anime.title }}">
+                        <div class="anime-info">
+                            <h3>{{ favorite.anime.title }}</h3>
+                            <div class="anime-rating">
+                                <i class="fas fa-star"></i>
+                                <span>{{ favorite.anime.rating }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="empty-message">У вас пока нет избранных аниме</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="tab-content" id="comments">
+                {% for comment in user.comments.all %}
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <img src="{{ comment.anime.poster_url }}" alt="{{ comment.anime.title }}" class="anime-thumbnail">
+                        <div class="comment-info">
+                            <h3>{{ comment.anime.title }}</h3>
+                            <span class="comment-date">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
+                        </div>
+                    </div>
+                    <p class="comment-text">{{ comment.text }}</p>
+                </div>
+                {% empty %}
+                <p class="empty-message">У вас пока нет комментариев</p>
+                {% endfor %}
+            </div>
+
+            <div class="tab-content" id="ratings">
+                <div class="ratings-grid">
+                    {% for rating in user.ratings.all %}
+                    <div class="rating-card">
+                        <img src="{{ rating.anime.poster_url }}" alt="{{ rating.anime.title }}">
+                        <div class="rating-info">
+                            <h3>{{ rating.anime.title }}</h3>
+                            <div class="user-rating">
+                                <i class="fas fa-star"></i>
+                                <span>{{ rating.rating }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="empty-message">У вас пока нет оценок</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-container {
+        display: flex;
+        gap: 30px;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: calc(100vh - 60px);
+        background: #1a1a1a;
+    }
+
+    .profile-sidebar {
+        width: 300px;
+        flex-shrink: 0;
+    }
+
+    .profile-avatar {
+        background: #232323;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-avatar img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .default-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+    }
+
+    .default-avatar i {
+        font-size: 60px;
+        color: #666;
+    }
+
+    .change-avatar-btn {
+        background: transparent;
+        border: 2px solid #ff9100;
+        color: #ff9100;
+        padding: 8px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .change-avatar-btn:hover {
+        background: #ff9100;
+        color: white;
+    }
+
+    .profile-stats {
+        background: #232323;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #333;
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .stat-value {
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff9100;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        color: #aaa;
+        font-size: 0.9rem;
+    }
+
+    .profile-content {
+        flex-grow: 1;
+    }
+
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-header h1 {
+        color: white;
+        margin: 0;
+    }
+
+    .edit-profile-btn {
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .edit-profile-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 145, 0, 0.4);
+    }
+
+    .profile-info {
+        background: #232323;
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+    }
+
+    .info-group {
+        margin-bottom: 20px;
+    }
+
+    .info-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .info-group label {
+        display: block;
+        color: #aaa;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+    }
+
+    .info-group p {
+        color: white;
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .profile-sections {
+        background: #232323;
+        padding: 30px;
+        border-radius: 20px;
+    }
+
+    .section-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: none;
+        padding: 10px 20px;
+        color: #aaa;
+        cursor: pointer;
+        border-radius: 20px;
+        transition: all 0.3s;
+    }
+
+    .tab-btn.active {
+        background: #ff9100;
+        color: white;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .anime-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .anime-card {
+        background: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+    .anime-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .anime-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+    }
+
+    .anime-info {
+        padding: 15px;
+    }
+
+    .anime-info h3 {
+        color: white;
+        margin: 0 0 10px 0;
+        font-size: 1rem;
+    }
+
+    .anime-rating {
+        color: #ffb300;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .comment-card {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .comment-header {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 10px;
+    }
+
+    .anime-thumbnail {
+        width: 60px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .comment-info h3 {
+        color: white;
+        margin: 0 0 5px 0;
+        font-size: 1rem;
+    }
+
+    .comment-date {
+        color: #aaa;
+        font-size: 0.8rem;
+    }
+
+    .comment-text {
+        color: #ddd;
+        margin: 0;
+    }
+
+    .ratings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .rating-card {
+        background: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .rating-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+    }
+
+    .rating-info {
+        padding: 15px;
+    }
+
+    .rating-info h3 {
+        color: white;
+        margin: 0 0 10px 0;
+        font-size: 1rem;
+    }
+
+    .user-rating {
+        color: #ffb300;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .empty-message {
+        text-align: center;
+        color: #aaa;
+        padding: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .profile-container {
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .profile-sidebar {
+            width: 100%;
+        }
+
+        .profile-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .section-tabs {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding content
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}

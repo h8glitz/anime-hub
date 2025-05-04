@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}Anime Hub - Регистрация{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <div class="register-box">
+        <h1>Создание аккаунта</h1>
+        
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="register-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Имя пользователя</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password1">Пароль</label>
+                <input type="password" id="password1" name="password1" required>
+                <div class="password-requirements">
+                    <p>Пароль должен содержать:</p>
+                    <ul>
+                        <li>Минимум 8 символов</li>
+                        <li>Буквы в верхнем и нижнем регистре</li>
+                        <li>Цифры</li>
+                        <li>Специальные символы</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password2">Подтверждение пароля</label>
+                <input type="password" id="password2" name="password2" required>
+            </div>
+            <div class="form-group terms">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="terms" id="terms" required>
+                    <span>Я согласен с <a href="/terms/" target="_blank">условиями использования</a></span>
+                </label>
+            </div>
+            <button type="submit" class="register-btn">Создать аккаунт</button>
+        </form>
+        <div class="register-links">
+            <p>Уже есть аккаунт? <a href="/login/">Войти</a></p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/static/images/hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+    }
+
+    .register-box {
+        background: rgba(35, 35, 35, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .register-box h1 {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        color: #aaa;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        background: #232323;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: #ff9100;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 145, 0, 0.2);
+    }
+
+    .password-requirements {
+        margin-top: 10px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        font-size: 0.8rem;
+        color: #aaa;
+    }
+
+    .password-requirements p {
+        margin-bottom: 5px;
+    }
+
+    .password-requirements ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .password-requirements li {
+        margin-bottom: 3px;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .password-requirements li:before {
+        content: "•";
+        position: absolute;
+        left: 5px;
+        color: #ff9100;
+    }
+
+    .terms {
+        margin-top: 20px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #aaa;
+        cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .checkbox-label span {
+        font-size: 0.9rem;
+    }
+
+    .checkbox-label a {
+        color: #ff9100;
+        text-decoration: none;
+    }
+
+    .checkbox-label a:hover {
+        text-decoration: underline;
+    }
+
+    .register-btn {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(90deg, #ff9100 60%, #ffb300 100%);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .register-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 145, 0, 0.4);
+    }
+
+    .register-links {
+        margin-top: 20px;
+        text-align: center;
+        color: #aaa;
+    }
+
+    .register-links a {
+        color: #ff9100;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .register-links a:hover {
+        color: #ffb300;
+    }
+
+    .messages {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+
+    .alert-error {
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 0, 0, 0.2);
+        color: #ff4444;
+    }
+
+    .alert-success {
+        background: rgba(0, 255, 0, 0.1);
+        border: 1px solid rgba(0, 255, 0, 0.2);
+        color: #00ff00;
+    }
+
+    @media (max-width: 480px) {
+        .register-box {
+            padding: 30px 20px;
+        }
+    }
+</style>
+{% endblock %} 

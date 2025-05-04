@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% block page_title %}Загрузка аниме...{% endblock %}{% endblock %}
+
+{% block content %}
+<div class="anime-player-page">
+  <!-- ===== Основной контейнер ===== -->
+  <div class="container">
+    <!-- 🔥 Блок информации об аниме -->
+    <div class="anime-detail">
+      <div class="anime-cover">
+        <img id="anime-poster" src="{% static 'images/no_poster.jpg' %}" alt="Постер">
+        <div class="anime-actions-overlay">
+          <button class="btn-favorite" id="add-to-favorite">
+            <i class="fas fa-heart"></i>
+            <span>В избранное</span>
+          </button>
+          <div class="rating-stars">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="anime-info">
+        <h1 id="anime-title">Загрузка...</h1>
+        
+        <!-- Статистика аниме -->
+        <div class="anime-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="rating">-</span>
+            <span class="stat-label">Рейтинг</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="year">-</span>
+            <span class="stat-label">Год</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="episodes">-</span>
+            <span class="stat-label">Эпизоды</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="status">-</span>
+            <span class="stat-label">Статус</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="duration">-</span>
+            <span class="stat-label">Длительность</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="age-rating">-</span>
+            <span class="stat-label">Возрастной рейтинг</span>
+          </div>
+        </div>
+        
+        <!-- Жанры -->
+        <div class="anime-genre" id="genres">-</div>
+        
+        <!-- Описание -->
+        <div class="anime-description" id="anime-description">Ожидаем информацию о тайтле...</div>
+        
+        <!-- Кнопки действий -->
+        <div class="anime-actions">
+          <a href="#player-wrapper" class="btn-main">Смотреть</a>
+          <button class="btn-secondary" id="share-button">
+            <i class="fas fa-share-alt"></i> Поделиться
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📺 Плеер Kodik (на всю ширину экрана) -->
+    <div id="player-wrapper" class="anime-player">
+      <h2>Смотреть онлайн</h2>
+      <div class="player-container"></div>
+    </div>
+
+    <!-- 🖼 Блок скриншотов -->
+    <section class="screenshots">
+      <h2>Скриншоты</h2>
+      <div class="screenshots-container"></div>
+    </section>
+
+    <!-- 🔥 Список эпизодов -->
+    <section class="episodes">
+      <h2>Список эпизодов</h2>
+      <div id="episodes-container"></div>
+    </section>
+    
+    <!-- Комментарии -->
+    <section class="comments">
+      <h2>Комментарии</h2>
+      <div class="comment-form">
+        <textarea placeholder="Написать комментарий..." id="comment-text"></textarea>
+        <button class="btn-main" id="submit-comment">Отправить</button>
+      </div>
+      <div class="comments-list" id="comments-container"></div>
+    </section>
+    
+    <!-- Рекомендации -->
+    <section class="recommendations">
+      <h2>Вам также может понравиться</h2>
+      <div class="anime-list" id="recommendations-list"></div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'anime.js' %}"></script>
+{% endblock %}

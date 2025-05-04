@@ -1,0 +1,2494 @@
+/* Основные переменные и настройки */
+:root {
+    --bg-dark: #111111;
+    --bg-card: #1a1a1a;
+    --text-light: #f0f0f0;
+    --text-gray: #b0b0b0;
+    --accent-orange: #ff6b00;
+    --accent-orange-light: #ff8c33;
+    --accent-glow: rgba(255, 107, 0, 0.4);
+    --card-radius: 12px;
+    --neomorphic-shadow: 5px 5px 15px rgba(0,0,0,0.5), -5px -5px 15px rgba(40,40,40,0.1);
+    --gradient-orange: linear-gradient(135deg, var(--accent-orange) 0%, #ff9500 100%);
+}
+
+/* Базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Навигация - современный дизайн */
+header {
+    background: rgba(17, 17, 17, 0.65); /* More transparency */
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 138, 0, 0.08);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.15),
+        0 1px 3px rgba(255, 107, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    padding: 0.7rem 2rem;
+    background: rgba(15, 15, 15, 0.92);
+    border-bottom: 1px solid rgba(255, 138, 0, 0.15);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        0 2px 5px rgba(255, 107, 0, 0.05);
+}
+
+header .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-decoration: none;
+    position: relative;
+}
+
+header .logo::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-orange);
+    border-radius: 50%;
+    left: -16px;
+    animation: pulse 2s infinite;
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 0.6rem;
+}
+
+header nav ul li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    letter-spacing: 0.3px;
+}
+
+header nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent-orange);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+header nav ul li a:hover::before {
+    width: 70%;
+}
+
+header nav ul li a.active {
+    background: linear-gradient(
+        to right,
+        var(--accent-orange) 0%,
+        var(--accent-orange-light) 100%
+    );
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+header nav ul li a.active::before {
+    display: none;
+}
+
+header .user-actions {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+header .btn-login {
+    background: rgba(255, 107, 0, 0.15);
+    color: var(--text-light);
+    border: 1px solid rgba(255, 107, 0, 0.3);
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+header .btn-login:hover {
+    background: rgba(255, 107, 0, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.15);
+}
+
+header .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+header .menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    header .header-container {
+        justify-content: space-between;
+    }
+    
+    header nav {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(12px);
+        padding: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        visibility: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        z-index: 99;
+    }
+    
+    header nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    header nav ul {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    header nav ul li {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    header nav ul li a {
+        display: block;
+        text-align: center;
+        padding: 0.8rem;
+    }
+    
+    header .menu-toggle {
+        display: flex;
+    }
+    
+    header.menu-open .menu-toggle span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    
+    header.menu-open .menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    header.menu-open .menu-toggle span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 0.8rem 1rem;
+    }
+    
+    header.scrolled {
+        padding: 0.6rem 1rem;
+    }
+    
+    header .logo {
+        font-size: 1.3rem;
+    }
+    
+    header .user-actions {
+        gap: 0.5rem;
+    }
+    
+    header .btn-login {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Главный баннер - расширенный дизайн */
+.hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://via.placeholder.com/1920x800') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 200px 20px;
+    margin-top: 70px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        radial-gradient(
+            var(--hero-gradient-size, 800px) circle at var(--hero-x, 50%) var(--hero-y, 50%),
+            rgba(255, 107, 0, 0.5) 0%,
+            rgba(255, 149, 0, 0.3) 25%,
+            rgba(255, 171, 0, 0.2) 40%,
+            rgba(255, 120, 60, 0.1) 60%,
+            transparent 80%
+        ),
+        radial-gradient(
+            calc(var(--hero-gradient-size, 400px) * 0.5) circle at calc(100% - var(--hero-x, 50%)) calc(100% - var(--hero-y, 50%)),
+            rgba(60, 120, 255, 0.3) 0%,
+            rgba(70, 100, 255, 0.2) 30%,
+            rgba(50, 80, 200, 0.1) 60%,
+            transparent 80%
+        ),
+        linear-gradient(
+            45deg,
+            rgba(255, 107, 0, 0.05) 0%,
+            transparent 30%,
+            transparent 70%,
+            rgba(70, 100, 255, 0.05) 100%
+        );
+    opacity: 1;
+    transition: background 0.2s ease, opacity 0.3s;
+    filter: blur(8px) saturate(1.5);
+    mix-blend-mode: normal;
+}
+
+/* Add Noise Overlay */
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1; /* Place behind content but above background */
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03; /* Very subtle */
+}
+
+/* Grid overlay element */
+.hero-grid-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0; /* Above noise, below content */
+    background:
+        repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(255, 107, 0, 0.05) 2px,
+            rgba(255, 107, 0, 0.05) 4px
+        );
+    animation: gridMove 30s linear infinite; /* Slower animation */
+    opacity: 0.3; /* Slightly less visible */
+}
+
+/* Enhanced Grid Overlay With Light Lines */
+.hero-grid-overlay-2 {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: gridMove 25s linear infinite;
+    opacity: 0.5;
+}
+
+/* Particle Effects Containers */
+.hero .sparkles,
+.hero .digital-particles,
+.hero .floating-elements,
+.hero .animated-shapes,
+.hero .tech-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Standard Sparkles */
+.hero .sparkle {
+    position: absolute;
+    width: 2px; /* Smaller */
+    height: 2px; /* Smaller */
+    background: rgba(255, 255, 255, 0.7); /* Slightly less bright */
+    border-radius: 50%;
+    animation: sparkleAnimation 4s ease-in-out infinite; /* Longer duration */
+    opacity: 0;
+    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.5); /* Add a subtle glow */
+}
+
+/* Digital Particles */
+.pixel-particle {
+    position: absolute;
+    border-radius: 2px; /* Slightly blocky */
+    opacity: 0;
+    animation: pixelDriftFade 5s linear infinite;
+}
+
+/* NEW: Floating Japanese Characters */
+.floating-character {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: "Yu Gothic", "MS Gothic", sans-serif;
+    font-size: 16px;
+    z-index: 0;
+    opacity: 0;
+    animation: floatUpFade 10s linear infinite;
+    text-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
+}
+
+/* NEW: Animated Shapes */
+.anime-shape {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    opacity: 0;
+    z-index: 0;
+    background-color: transparent;
+    animation: shapeFloat 12s ease-in-out infinite;
+}
+
+.shape-circle {
+    border-radius: 50%;
+    border: 1px solid rgba(255, 107, 0, 0.4);
+}
+
+.shape-triangle {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 17px solid rgba(255, 255, 255, 0.15);
+}
+
+.shape-square {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+}
+
+/* NEW: Tech Lines */
+.tech-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 107, 0, 0.2) 50%, 
+        transparent 100%);
+    opacity: 0;
+    transform-origin: left center;
+    animation: techLineScan 8s ease-in-out infinite;
+}
+
+/* Particle Variations */
+.pixel--white {
+    background: rgba(255, 255, 255, 0.6);
+    width: 2px;
+    height: 2px;
+    box-shadow: 0 0 3px 0px rgba(255, 255, 255, 0.4);
+}
+
+.pixel--orange {
+    background: rgba(255, 140, 0, 0.5); /* Subtle orange */
+    width: 3px;
+    height: 3px;
+    box-shadow: 0 0 4px 0px rgba(255, 140, 0, 0.3);
+    animation-duration: 7s; /* Slower */
+}
+
+.pixel--tiny {
+    background: rgba(255, 255, 255, 0.4);
+    width: 1px;
+    height: 1px;
+    animation-duration: 4s; /* Faster */
+    animation-name: pixelFastFade; /* Different animation */
+}
+
+/* NEW: Data Block Particles */
+.pixel--data-block {
+    width: 8px;
+    height: 3px;
+    background: rgba(255, 200, 0, 0.2);
+    animation-name: dataBlockFloat;
+    animation-duration: 12s;
+}
+
+/* NEW: Shining Stars */
+.pixel--star {
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.7);
+    animation-name: starShine;
+    animation-duration: 3s;
+}
+
+/* NEW: Pulsing Dots */
+.pixel--pulse {
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 120, 0, 0.6);
+    border-radius: 50%;
+    animation-name: pulseDot;
+    animation-duration: 4s;
+}
+
+/* Animations */
+@keyframes pixelDriftFade {
+    0% {
+        transform: translateY(0) translateX(0) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    80% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-80px) translateX(10px) scale(0.5); /* Slight upward drift and horizontal move */
+        opacity: 0;
+    }
+}
+
+@keyframes pixelFastFade {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    30% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+    100% {
+        transform: translateY(-50px) scale(0.2); /* Faster fade up */
+        opacity: 0;
+    }
+}
+
+@keyframes sparkleAnimation {
+    0%, 100% {
+        transform: scale(0.5); /* Start and end small */
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1); /* Full size in the middle */
+        opacity: 0.7;
+    }
+}
+
+@keyframes gridMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+/* NEW: Japanese characters float animation */
+@keyframes floatUpFade {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    70% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+/* NEW: Shapes float animation */
+@keyframes shapeFloat {
+    0% {
+        transform: translateY(80px) translateX(-10px) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.7;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-80px) translateX(10px) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* NEW: Tech line scanning animation */
+@keyframes techLineScan {
+    0% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 0.6;
+    }
+    51% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: scaleX(1);
+        opacity: 0;
+    }
+}
+
+/* NEW: Data block floating animation */
+@keyframes dataBlockFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(50px);
+    }
+}
+
+/* NEW: Star shine animation */
+@keyframes starShine {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* NEW: Pulsing dot animation */
+@keyframes pulseDot {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(3);
+    }
+}
+
+/* Hero Content */
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--text-gray);
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.hero .btn-main {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--gradient-orange);
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+
+.hero .btn-main:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 0, 0.4);
+}
+
+/* Секции */
+section {
+    padding: 4rem 2rem;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-light);
+    position: relative;
+    width: 100%;
+    left: 0;
+    transform: none;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: var(--gradient-orange);
+    border-radius: 3px;
+}
+
+/* Подвал */
+footer {
+    background-color: var(--bg-card);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-gray);
+    margin-top: 4rem;
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+
+    header nav ul {
+        flex-wrap: wrap;
+    }
+
+    header nav ul li a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        padding: 150px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    section {
+        padding: 3rem 1rem;
+    }
+
+    section h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-card);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-orange);
+}
+
+/* Обновления */
+.updates, .popular-anime, .about, .team {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #1d1d1d;
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+.updates h2, .popular-anime h2, .about h1, .team h2 {
+    font-size: 40px;
+    margin-bottom: 50px;
+    color: #f39c12;
+}
+
+.update-slider, .anime-cards, .team-members, .episode-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Карточки */
+body .anime-card, 
+body .updates .anime-card, 
+body .popular-anime .anime-card,
+body .anime-list .anime-card {
+    width: 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1a1a1a;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: none;
+}
+
+body .anime-card img, 
+body .updates .anime-card img, 
+body .popular-anime .anime-card img,
+body .anime-list .anime-card img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+    border-bottom: none;
+    transition: all 0.5s ease;
+}
+
+body .anime-card .info, 
+body .updates .anime-card .info, 
+body .popular-anime .anime-card .info,
+body .anime-list .anime-card .info {
+    padding: 15px;
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: #1a1a1a;
+}
+
+body .anime-card h4, 
+body .updates .anime-card h4, 
+body .popular-anime .anime-card h4,
+body .anime-list .anime-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: 600;
+}
+
+body .anime-card p, 
+body .updates .anime-card p, 
+body .popular-anime .anime-card p,
+body .anime-list .anime-card p {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    overflow: hidden;
+    max-height: 60px;
+}
+
+body .anime-card .genres, 
+body .updates .anime-card .genres, 
+body .popular-anime .anime-card .genres,
+body .anime-list .anime-card .genres {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+body .anime-card .genre-tag, 
+body .updates .anime-card .genre-tag, 
+body .popular-anime .anime-card .genre-tag,
+body .anime-list .anime-card .genre-tag {
+    background: #f39c12;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 8px;
+    width: fit-content;
+}
+
+body .anime-card .watch-btn, 
+body .updates .anime-card .watch-btn, 
+body .popular-anime .anime-card .watch-btn,
+body .anime-list .anime-card .watch-btn {
+    display: block;
+    padding: 15px 30px;
+    background: var(--gradient-orange, #f39c12);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s;
+    text-align: center;
+    margin: 20px auto 0 auto;
+    width: fit-content;
+    min-width: 180px;
+    box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body .anime-card .watch-btn:hover, 
+body .updates .anime-card .watch-btn:hover, 
+body .popular-anime .anime-card .watch-btn:hover,
+body .anime-list .anime-card .watch-btn:hover {
+    background-color: #e67e22;
+    box-shadow: 0 5px 20px rgba(243, 156, 18, 0.5);
+}
+
+body .anime-card .rating, 
+body .updates .anime-card .rating, 
+body .popular-anime .anime-card .rating,
+body .anime-list .anime-card .rating {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f39c12;
+    color: white;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 2;
+    font-size: 1rem;
+}
+
+body .anime-card .status, 
+body .updates .anime-card .status, 
+body .popular-anime .anime-card .status,
+body .anime-list .anime-card .status {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    z-index: 2;
+    background: #4CAF50;
+    color: #fff;
+}
+
+body .anime-card .status.released,
+body .updates .anime-card .status.released,
+body .popular-anime .anime-card .status.released,
+body .anime-list .anime-card .status.released {
+    background: #2196F3;
+}
+
+body .anime-card:hover, 
+body .updates .anime-card:hover, 
+body .popular-anime .anime-card:hover,
+body .anime-list .anime-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(243, 156, 18, 0.2);
+}
+
+body .anime-card:hover img, 
+body .updates .anime-card:hover img, 
+body .popular-anime .anime-card:hover img,
+body .anime-list .anime-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Обновляем стили для страницы аниме */
+.anime-detail {
+    padding: 80px 20px;
+    background-color: var(--bg-card);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 70px;
+    border-radius: 15px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.anime-cover {
+    position: relative;
+}
+
+.anime-cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 107, 0, 0.2), transparent);
+    pointer-events: none;
+    border-radius: 10px;
+}
+
+.anime-cover img {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.anime-info {
+    max-width: 700px;
+    color: #fff;
+    flex: 1;
+    min-width: 300px;
+}
+
+.anime-info h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.anime-info h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-orange);
+    border-radius: 3px;
+}
+
+.anime-info .anime-genre {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #f39c12;
+}
+
+.anime-info .anime-description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.anime-actions .btn-main {
+    padding: 15px 30px;
+    background-color: #f39c12;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+    margin-right: 20px;
+}
+
+.anime-actions .btn-main:hover {
+    background-color: #e67e22;
+    box-shadow: 0 5px 20px rgba(243, 156, 18, 0.5);
+}
+
+/* Плеер */
+.anime-player {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #121212;
+    margin: 40px auto;
+    max-width: 1200px;
+    width: 95%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.anime-player h2 {
+    margin-bottom: 25px;
+    color: #f39c12;
+    text-align: center;
+}
+
+.player-container iframe {
+    width: 100%;
+    height: 650px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Скриншоты и эпизоды */
+.screenshots, .episodes, .recommendations {
+    margin: 40px auto;
+    max-width: 1200px;
+    width: 95%;
+}
+
+.screenshots h2, .episodes h2, .recommendations h2 {
+    margin-bottom: 25px;
+    color: #f39c12;
+    text-align: center;
+}
+
+/* Отзывчивый плеер */
+@media (max-width: 768px) {
+    .player-container iframe {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-container iframe {
+        height: 300px;
+    }
+}
+
+/* Эффекты */
+@keyframes rotateIcon {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.icon:hover {
+    animation: rotateIcon 1s ease-in-out;
+}
+
+/* Плавный скроллинг */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Анимация появления */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about, .team, .updates, .team-member, .anime-card, .anime-detail {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 1s ease-out forwards;
+}
+
+.about {
+    animation-delay: 0.5s;
+}
+
+.team {
+    animation-delay: 1s;
+}
+
+.updates {
+    animation-delay: 1.5s;
+}
+
+.team-member {
+    animation-delay: 2s;
+}
+
+/* Стили для страницы с аниме */
+.anime-page {
+    padding-top: 80px;
+    min-height: 100vh;
+    background-color: var(--bg-dark);
+}
+
+/* Исправленные стили для контейнера и фильтров */
+.content-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    align-items: flex-start;
+}
+
+aside.filters {
+    background: var(--bg-card);
+    padding: 28px 22px;
+    border-radius: var(--card-radius);
+    box-shadow: var(--neomorphic-shadow);
+    position: sticky;
+    top: 100px;
+    min-width: 220px;
+    max-width: 320px;
+    width: 100%;
+    height: fit-content;
+    z-index: 2;
+    display: block;
+}
+
+aside.filters h3 {
+    color: var(--text-light);
+    font-size: 22px;
+    margin-bottom: 22px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-orange);
+    letter-spacing: 1px;
+}
+
+aside.filters label {
+    display: block;
+    color: var(--text-gray);
+    margin-bottom: 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+aside.filters select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+aside.filters select:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+aside.filters select option {
+    background: #1a1a1a;
+    color: var(--text-light);
+}
+
+aside.filters select option:checked {
+    background: var(--accent-orange);
+    color: #000;
+}
+
+aside.filters input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--accent-orange);
+    transform: scale(1.2);
+}
+
+@media (max-width: 992px) {
+    .content-container {
+        grid-template-columns: 1fr;
+    }
+    aside.filters {
+        position: static;
+        margin-bottom: 30px;
+        max-width: 100%;
+    }
+}
+
+/* Список аниме */
+.anime-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Новый класс для динамического градиентного перелива */
+.hero-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 1;
+    transition: background 0.5s ease-out;
+    background: radial-gradient(
+        800px circle at 50% 50%,
+        rgba(255, 107, 0, 0.35) 0%,
+        rgba(255, 149, 0, 0.25) 40%,
+        transparent 80%
+    );
+    animation: pulse 15s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        filter: saturate(1) brightness(1);
+        opacity: 0.8;
+    }
+    25% {
+        filter: saturate(1.1) brightness(1.05);
+        opacity: 0.9;
+    }
+    50% {
+        filter: saturate(1.3) brightness(1.1);
+        opacity: 1;
+    }
+    75% {
+        filter: saturate(1.2) brightness(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        filter: saturate(1) brightness(1);
+        opacity: 0.8;
+    }
+}
+
+/* Remove hover effects on anime page */
+.anime-page .anime-card:hover {
+    transform: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.anime-page .anime-card:hover img {
+    transform: none;
+}
+
+/* Fix search container input and button styles */
+.search-container {
+    margin-bottom: 25px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-container input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.search-container input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.search-container button {
+    padding: 12px 24px;
+    background: var(--gradient-orange);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.search-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+}
+
+/* Improve card layout in sections */
+.updates .anime-list, .popular-anime .anime-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Consistent card styling for all cards */
+.anime-card, .team-member, .episode-card {
+    width: 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.anime-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(243, 156, 18, 0.2);
+}
+
+.anime-card:hover .watch-btn {
+    background-color: #e67e22;
+}
+
+/* Improve user experience on anime page */
+.anime-detail {
+    padding: 80px 20px;
+    background-color: var(--bg-card);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 70px;
+    border-radius: 15px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.anime-info {
+    max-width: 700px;
+    color: #fff;
+    flex: 1;
+    min-width: 300px;
+}
+
+.anime-cover {
+    position: relative;
+}
+
+.anime-cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 107, 0, 0.2), transparent);
+    pointer-events: none;
+    border-radius: 10px;
+}
+
+.anime-cover img {
+    width: 300px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.anime-info h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.anime-info h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-orange);
+    border-radius: 3px;
+}
+
+.anime-stats {
+    display: flex;
+    gap: 20px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--accent-orange);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+/* Better animation for all sections */
+.updates, .popular-anime, .about, .team {
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+/* Add loading indicator styles at the end of the file */
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    width: 100%;
+    color: var(--text-light);
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 107, 0, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--accent-orange);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.no-results {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-gray);
+    font-size: 18px;
+    width: 100%;
+}
+
+/* Add tooltip for card actions */
+.watch-btn {
+    position: relative;
+}
+
+.watch-btn::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background: var(--bg-card);
+    color: var(--text-light);
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+/* Add back hover effects for anime cards on main pages */
+.anime-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(255, 107, 0, 0.2);
+}
+
+/* Add back styles for team-member and episode-card */
+.team-member, .episode-card {
+    border-radius: 10px;
+    width: 240px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.team-member:hover, .episode-card:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.team-member h3 {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.team-member p {
+    font-size: 16px;
+    color: #f39c12;
+}
+
+.episode-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 5px solid #f39c12;
+    transition: transform 0.3s ease-in-out;
+}
+
+.episode-card img:hover {
+    transform: scale(1.1);
+}
+
+/* Add back the anime-link styles */
+.anime-card .anime-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Add back media queries */
+@media (max-width: 1200px) {
+    .content-container {
+        grid-template-columns: 240px 1fr;
+    }
+    
+    .anime-list {
+        gap: 20px;
+    }
+    
+    body .anime-card, 
+    body .updates .anime-card, 
+    body .popular-anime .anime-card,
+    body .anime-list .anime-card {
+        width: 260px;
+    }
+}
+
+@media (max-width: 992px) {
+    .content-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters {
+        position: static;
+        margin-bottom: 30px;
+    }
+    
+    .anime-list {
+        gap: 15px;
+    }
+    
+    body .anime-card, 
+    body .updates .anime-card, 
+    body .popular-anime .anime-card,
+    body .anime-list .anime-card {
+        width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .anime-list {
+        gap: 15px;
+    }
+    
+    body .anime-card, 
+    body .updates .anime-card, 
+    body .popular-anime .anime-card,
+    body .anime-list .anime-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .anime-list {
+        gap: 20px;
+    }
+    
+    body .anime-card, 
+    body .updates .anime-card, 
+    body .popular-anime .anime-card,
+    body .anime-list .anime-card {
+        width: 100%;
+    }
+}
+
+/* --- СТИЛИ КАРТОЧЕК АНИМЕ (ОСНОВНОЙ ДИЗАЙН) --- */
+.anime-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    width: 240px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.anime-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 16px 40px 0 rgba(255,107,0,0.15), 0 2px 8px rgba(0,0,0,0.18);
+}
+.anime-poster {
+    position: relative;
+    width: 100%;
+    padding-top: 133%;
+}
+.anime-poster img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    background: #222;
+}
+.anime-rating {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--accent-orange);
+    color: #fff;
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(255,107,0,0.15);
+    z-index: 2;
+}
+.anime-info {
+    padding: 18px 16px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: transparent;
+}
+.anime-title {
+    margin: 0 0 12px 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    min-height: 40px;
+}
+.anime-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 0;
+}
+.anime-genre-tag {
+    background: var(--accent-orange);
+    color: #fff;
+    font-size: 0.85rem;
+    padding: 3px 12px;
+    border-radius: 16px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+.anime-card .anime-poster .status {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    z-index: 2;
+    background: #4CAF50;
+    color: #fff;
+}
+.anime-card .anime-poster .status.released {
+    background: #2196F3;
+}
+.anime-card .anime-poster .rating {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f39c12;
+    color: white;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 2;
+    font-size: 1rem;
+}
+
+/* --- Pixel Particle Effect --- */
+.hero .digital-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.pixel-particle {
+    position: absolute;
+    border-radius: 2px; /* Slightly blocky */
+    opacity: 0;
+    animation: pixelDriftFade 5s linear infinite;
+}
+
+/* Variations */
+.pixel--white {
+    background: rgba(255, 255, 255, 0.6);
+    width: 2px;
+    height: 2px;
+    box-shadow: 0 0 3px 0px rgba(255, 255, 255, 0.4);
+}
+
+.pixel--orange {
+    background: rgba(255, 140, 0, 0.5); /* Subtle orange */
+    width: 3px;
+    height: 3px;
+    box-shadow: 0 0 4px 0px rgba(255, 140, 0, 0.3);
+    animation-duration: 7s; /* Slower */
+}
+
+.pixel--tiny {
+    background: rgba(255, 255, 255, 0.4);
+    width: 1px;
+    height: 1px;
+    animation-duration: 4s; /* Faster */
+    animation-name: pixelFastFade; /* Different animation */
+}
+
+/* Animations */
+@keyframes pixelDriftFade {
+    0% {
+        transform: translateY(0) translateX(0) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    80% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-80px) translateX(10px) scale(0.5); /* Slight upward drift and horizontal move */
+        opacity: 0;
+    }
+}
+
+@keyframes pixelFastFade {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    30% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+    100% {
+        transform: translateY(-50px) scale(0.2); /* Faster fade up */
+        opacity: 0;
+    }
+}
+
+/* Стили для страницы "О нас" */
+.about-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.about-header {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.about-header h1 {
+    font-size: 3.5rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.about-decoration {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.about-decoration span {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-orange);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.about-decoration span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.about-decoration span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.about-text {
+    margin: 40px 0;
+    line-height: 1.8;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    color: var(--text-gray);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 60px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: var(--card-radius);
+    min-width: 200px;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-orange);
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+}
+
+/* Стили для секций */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    color: var(--text-gray);
+    font-size: 1.2rem;
+}
+
+/* Стили для преимуществ */
+.features {
+    padding: 80px 20px;
+    background: var(--bg-card);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+}
+
+.feature-card {
+    background: var(--bg-dark);
+    padding: 40px 30px;
+    border-radius: var(--card-radius);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--neomorphic-shadow);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 107, 0, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.feature-card:hover::before {
+    transform: translateX(100%);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: var(--accent-orange);
+}
+
+.feature-card h3 {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.feature-card p {
+    color: var(--text-gray);
+    margin-bottom: 20px;
+}
+
+.feature-hover {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: var(--accent-orange);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: bottom 0.3s ease;
+}
+
+.feature-card:hover .feature-hover {
+    bottom: 0;
+}
+
+/* Стили для команды */
+.team {
+    padding: 80px 20px;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 40px auto 0;
+}
+
+.team-member {
+    background: var(--bg-card);
+    border-radius: var(--card-radius);
+    padding: 30px;
+    text-align: center;
+    width: 350px;
+    transition: all 0.3s ease;
+    box-shadow: var(--neomorphic-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--gradient-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover::before {
+    transform: scaleX(1);
+}
+
+.member-image {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover .member-image img {
+    transform: scale(1.1);
+}
+
+.member-social {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover .member-social {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-link {
+    color: var(--text-light);
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--accent-orange);
+    transform: translateY(-3px);
+}
+
+.member-info {
+    padding: 20px 0;
+}
+
+.member-role {
+    color: var(--accent-orange);
+    font-weight: 600;
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.member-description {
+    color: var(--text-gray);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.member-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.skill-tag {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: var(--accent-orange);
+    transform: translateY(-2px);
+}
+
+/* Стили для целей */
+.goals {
+    padding: 80px 20px;
+    background: var(--bg-card);
+}
+
+.goals-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+}
+
+.goal-item {
+    background: var(--bg-dark);
+    padding: 40px 30px;
+    border-radius: var(--card-radius);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.goal-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.goal-item:hover::after {
+    transform: scaleX(1);
+}
+
+.goal-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.goal-item:hover .goal-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.goal-icon i {
+    font-size: 2rem;
+    color: var(--accent-orange);
+}
+
+.goal-item h3 {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.goal-item p {
+    color: var(--text-gray);
+    margin-bottom: 25px;
+}
+
+.goal-progress {
+    height: 6px;
+    background: var(--bg-card);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--gradient-orange);
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+/* Стили для контактов */
+.contact {
+    padding: 80px 20px;
+}
+
+.contact-content {
+    max-width: 1000px;
+    margin: 40px auto 0;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: var(--card-radius);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 300px;
+    transition: all 0.3s ease;
+    box-shadow: var(--neomorphic-shadow);
+}
+
+.contact-item:hover {
+    transform: translateY(-10px);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.contact-icon i {
+    font-size: 1.5rem;
+    color: var(--accent-orange);
+}
+
+.contact-details h3 {
+    color: var(--text-light);
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.contact-details p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+}
+
+/* Медиа-запросы для страницы "О нас" */
+@media (max-width: 768px) {
+    .about-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .about-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-item {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-member {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .goals-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-item {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+/* Анимации */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Add custom accent blobs to the header */
+header::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: 10%;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, 
+        rgba(255, 107, 0, 0.3) 0%, 
+        rgba(255, 107, 0, 0.1) 40%, 
+        transparent 70%);
+    filter: blur(30px);
+    border-radius: 50%;
+    opacity: 0.6;
+    z-index: -1;
+    animation: floatBlob 8s ease-in-out infinite;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: 15%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, 
+        rgba(70, 100, 255, 0.2) 0%, 
+        rgba(70, 100, 255, 0.08) 40%, 
+        transparent 70%);
+    filter: blur(25px);
+    border-radius: 50%;
+    opacity: 0.6;
+    z-index: -1;
+    animation: floatBlob 10s ease-in-out infinite reverse;
+}
+
+@keyframes floatBlob {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(10px, -10px) scale(1.1);
+    }
+}
+

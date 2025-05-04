@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Топ аниме{% endblock %}
+
+{% block content %}
+<div class="anime-page">
+  <!-- Секция поиска (на всю ширину, сразу после хедера) -->
+  <section class="search-section">
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="🔎 Поиск по названию..." />
+      <button id="search-btn">Найти</button>
+    </div>
+  </section>
+
+  <!-- Основной контент: фильтры и таблица аниме -->
+  <div class="content-container">
+    <!-- Фильтры -->
+    <aside class="filters">
+      <h3>Фильтры</h3>
+
+      <!-- Фильтр жанра -->
+      <label for="genre">Жанр:</label>
+      <select id="genre">
+          <option value="all">Все</option>
+          <option value="action">Экшн</option>
+          <option value="comedy">Комедия</option>
+          <option value="drama">Драма</option>
+          <option value="fantasy">Фэнтези</option>
+          <option value="horror">Ужасы</option>
+      </select>
+
+      <!-- Фильтр рейтинга -->
+      <label for="rating">Рейтинг:</label>
+      <select id="rating">
+          <option value="all">Все</option>
+          <option value="high">Высокий</option>
+          <option value="low">Низкий</option>
+      </select>
+
+      <!-- Статус аниме -->
+      <label><input type="checkbox" id="completed" /> Завершённые</label>
+      <label><input type="checkbox" id="ongoing" /> В процессе</label>
+    </aside>
+
+    <!-- Таблица/Сетка карточек аниме -->
+    <main class="anime-list" id="anime-list">
+      <!-- Здесь динамически будут выводиться карточки -->
+      <div class="loading-indicator">Загрузка аниме...</div>
+    </main>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'anime_collection.js' %}" defer></script>
+{% endblock %}

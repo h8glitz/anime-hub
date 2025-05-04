@@ -1,0 +1,197 @@
+<!-- registration/register.html -->
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="register-page">
+    <div class="register-box">
+        <div class="register-header">
+            <span class="register-icon">📝</span>
+            <h2>Создать аккаунт</h2>
+        </div>
+        {% if form.errors %}
+            <div class="register-error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form method="post" class="register-form">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="id_username">Имя пользователя</label>
+                <input type="text" name="username" id="id_username" required placeholder="Введите имя пользователя">
+            </div>
+            <div class="input-group">
+                <label for="id_email">Email</label>
+                <input type="email" name="email" id="id_email" required placeholder="Ваш email">
+            </div>
+            <div class="input-group">
+                <label for="id_password1">Пароль</label>
+                <input type="password" name="password1" id="id_password1" required placeholder="Придумайте пароль">
+            </div>
+            <div class="input-group">
+                <label for="id_password2">Подтверждение пароля</label>
+                <input type="password" name="password2" id="id_password2" required placeholder="Повторите пароль">
+            </div>
+            <button type="submit" class="btn-main register-btn">Зарегистрироваться</button>
+        </form>
+        <div class="register-bottom">
+            <p>Уже есть аккаунт?</p>
+            <a href="/accounts/login/" class="btn-main btn-link">Войти</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, #f39c12 0%, #ffb347 100%);
+    padding: 0 10px;
+}
+.register-box {
+    background: var(--bg-card, #181818);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 36px 28px 28px 28px;
+    max-width: 400px;
+    width: 100%;
+    margin: 60px 0 32px 0;
+    position: relative;
+    animation: fadeInUp 0.7s cubic-bezier(.39,.575,.565,1) both;
+}
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: none; }
+}
+.register-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+.register-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 8px;
+}
+.register-header h2 {
+    color: var(--accent-orange, #f39c12);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(243,156,18,0.13);
+}
+.register-error {
+    color: #ff4444;
+    background: rgba(255,68,68,0.08);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 18px;
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.input-group label {
+    color: var(--text-light, #fff);
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size: 1rem;
+}
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.13);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-light, #fff);
+    font-size: 1rem;
+    transition: all 0.3s;
+    outline: none;
+}
+.input-group input:focus {
+    border-color: var(--accent-orange, #f39c12);
+    box-shadow: 0 0 0 2px rgba(243,156,18,0.18);
+    background: rgba(255,255,255,0.11);
+}
+.register-btn {
+    margin-top: 10px;
+    background: linear-gradient(90deg, #f39c12 0%, #ffb347 100%);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(243,156,18,0.18);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.register-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(243,156,18,0.28);
+    background: linear-gradient(90deg, #ffb347 0%, #f39c12 100%);
+}
+.register-bottom {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.09);
+}
+.btn-link {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid var(--accent-orange, #f39c12);
+    color: var(--accent-orange, #f39c12);
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-top: 8px;
+    transition: all 0.3s;
+}
+.btn-link:hover {
+    background: var(--accent-orange, #f39c12);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(243,156,18,0.18);
+}
+@media (max-width: 600px) {
+    .register-box {
+        padding: 18px 6vw 18px 6vw;
+        margin: 30px 0 16px 0;
+    }
+    .register-header h2 {
+        font-size: 1.3rem;
+    }
+    .register-icon {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock %}
