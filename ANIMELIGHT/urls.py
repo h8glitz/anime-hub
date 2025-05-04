@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.urls import path
 from anime_deploy import views  # Импортируем views из приложения anime_deploy
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -30,4 +32,9 @@ urlpatterns = [
     path('support/', views.support_view, name='support'),
   # Ваши другие маршруты
 ]
+
+# Добавляем обработку статических и медиа-файлов в режиме разработки
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

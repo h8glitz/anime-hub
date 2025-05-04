@@ -17,6 +17,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',   # Нужно для базовых моделей
     'django.contrib.auth',           # Нужно для пользователей и авторизации
     'django.contrib.staticfiles',
+    'django.contrib.sessions',       # Добавлено для поддержки сессий
+    'django.contrib.messages',       # Добавлено для поддержки сообщений
     'anime_deploy',                  # Наше приложение
 ]
 
@@ -25,6 +27,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # Добавлено перед CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Для обслуживания статических файлов
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,12 +97,28 @@ LOGIN_URL = "/accounts/login/"
 
 STATIC_URL = '/static/'
 
-# Добавляем STATIC_ROOT для сбора статических файлов при деплое
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Директория, куда collectstatic соберет все статические файлы
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# Дополнительные директории, из которых Django будет собирать статические файлы
 STATICFILES_DIRS = [
-    BASE_DIR / 'anime_deploy/static',
+    os.path.join(BASE_DIR, 'anime_deploy/static'),
 ]
+
+# Настройки для WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Настройки для медиафайлов (загружаемых пользователями)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Настройка для обработки статики через Django в режиме DEBUG
+if DEBUG:
+    # Добавляем обработку MEDIA_URL в режиме разработки
+    INSTALLED_APPS += ['django.contrib.staticfiles']
+    import mimetypes
+    mimetypes.add_type("text/css", ".css", True)
+    mimetypes.add_type("application/javascript", ".js", True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
