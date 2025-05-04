@@ -3,6 +3,7 @@ Django settings for ANIMELIGHT project.
 """
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -93,6 +94,8 @@ LOGIN_URL = "/accounts/login/"
 
 STATIC_URL = '/static/'
 
+# Добавляем STATIC_ROOT для сбора статических файлов при деплое
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'anime_deploy/static',
